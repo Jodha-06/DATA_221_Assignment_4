@@ -4,24 +4,33 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 
+# Load Data Frame
 load_data = load_breast_cancer()
 
+# Create the feature matrix (X) and the target vector (y)
 X= pd.DataFrame(load_data.data, columns=load_data.feature_names)
 y = pd.Series(load_data.target)
 
+# Split data into training and testing sets (80/20 split)
 X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 0.2, random_state=42, stratify = y)
 
+# Train Decision Tree model with limited depth
 Decision_Tree_Model = DecisionTreeClassifier(criterion='entropy', max_depth=4, random_state=42)
 Decision_Tree_Model.fit(X_train, y_train)
 
+# Make predictions for Training and Testing Sets
 y_train_prediction = Decision_Tree_Model.predict(X_train)
 y_test_prediction = Decision_Tree_Model.predict(X_test)
+
+# Calculate Accuracy for Training and Testing Sets
 y_train_accuracy = accuracy_score(y_train, y_train_prediction)
 y_test_accuracy = accuracy_score(y_test, y_test_prediction)
 
+# Print  Accuracy for Training and Testing Sets
 print(f"Training Accuracy: {y_train_accuracy}")
 print(f"Testing Accuracy: {y_test_accuracy}")
 
+# Feature importance
 importances = pd.Series(Decision_Tree_Model.feature_importances_, index=X.columns)
 print("\nTop 5 Features: ")
 print(importances.sort_values(ascending=False).head(5))
