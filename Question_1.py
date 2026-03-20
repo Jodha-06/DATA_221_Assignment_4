@@ -2,14 +2,18 @@ from sklearn.datasets import load_breast_cancer
 import pandas as pd
 import numpy as np
 
+# Load Data Frame
 load_data = load_breast_cancer()
 
+# Create the feature matrix (X) and the target vector (y)
 X= pd.DataFrame(load_data.data, columns=load_data.feature_names)
 y = pd.Series(load_data.target)
 
+# Print shapes
 print(f"The shape of X is {X.shape}")
 print(f"The shape of y is {y.shape}")
 
+# Print class distribution
 print("\nNumber of Samples belonging to each class: ")
 print(y.value_counts())
 
