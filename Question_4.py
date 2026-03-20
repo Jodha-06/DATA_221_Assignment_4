@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
 
-# Load Data Frame
+# Load Data Set
 load_data = load_breast_cancer()
 
 # Create the feature matrix (X) and the target vector (y)

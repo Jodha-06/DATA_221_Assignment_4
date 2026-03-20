@@ -2,7 +2,7 @@ from sklearn.datasets import load_breast_cancer
 import pandas as pd
 import numpy as np
 
-# Load Data Frame
+# Load Data Set
 load_data = load_breast_cancer()
 
 # Create the feature matrix (X) and the target vector (y)

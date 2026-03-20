@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 
-# Load Data Frame
+# Load Data Set
 load_data = load_breast_cancer()
 
 # Create the feature matrix (X) and the target vector (y)
