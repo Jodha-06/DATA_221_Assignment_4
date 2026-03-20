@@ -5,14 +5,18 @@ from tensorflow.keras.datasets import fashion_mnist
 from tensorflow.keras import layers, models
 from sklearn.metrics import confusion_matrix
 
+# Load Dataset
 (X_train, y_train), (X_test, y_test) = fashion_mnist.load_data()
 
+# Normalize pixel values to range [0,1]
 X_train = X_train / 255.0
 X_test = X_test / 255.0
 
+# Reshape to include channel dimension
 X_train = X_train.reshape(-1,28,28,1)
 X_test = X_test.reshape(-1,28,28,1)
 
+# Build CNN Model
 CNN_Model = models.Sequential([
     layers.Conv2D(32,(3,3), activation='relu', input_shape=(28,28,1)),
     layers.MaxPooling2D((2,2)),
@@ -21,18 +25,23 @@ CNN_Model = models.Sequential([
     layers.Dense(10, activation='softmax')
 ])
 
+# Compile and train model
 CNN_Model.compile(optimizer='adam',loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
 CNN_Model.fit(X_train,y_train,epochs=5, verbose=0)
 
+# Generate predictions
 y_probability_prediction = CNN_Model.predict(X_test)
 y_prediction = y_probability_prediction.argmax(axis=1)
 
+# Confusion Matric
 Confusion_Matrix = confusion_matrix(y_test,y_prediction)
 print(f"Confusion_Matrix:\n {Confusion_Matrix}")
 
+# Find any misclassified images
 misclassified_images = np.where(y_prediction != y_test)[0]
 
+# Display 3 misclassified images
 for i in range(3):
     idx = misclassified_images[i]
     plt.imshow(X_test[idx].reshape(28,28))
